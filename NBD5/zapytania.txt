@@ -1,0 +1,57 @@
+1.	Wszystkie filmy
+
+match (n:Movie) return n
+
+2.	Wszystkie filmy, w których grał Hugo Weaving 
+
+MATCH (n:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(m) RETURN m
+
+3.	Reżyserzy filmów, w których grał Hugo Weaving 
+
+MATCH (n:Person {name:"Hugo Weaving"})-[:ACTED_IN]->(m)<-[:DIRECTED]-(d) RETURN d
+
+4.	Wszystkie osoby, z którymi Hugo Weaving grał w tych samych filmach
+
+MATCH (tom:Person {name:"Hugo Weaving"})-[:ACTED_IN]->(m)<-[:ACTED_IN]-(coActors) RETURN coActors
+
+5.	Wszystkie filmy osób, które grały w Matrix
+
+MATCH (n {title: "The Matrix"})<-[:ACTED_IN]-(m) RETURN m
+
+6.	Listę aktorów (aktor = osoba, która grała przynajmniej w jednym filmie) wraz z ilością filmów, w których gral
+
+MATCH(n:Person)-[r:ACTED_IN]->(m)
+with n, count(r) as ilosc
+where ilosc >0
+return n,ilość
+
+7.	Listę osób, które napisały scenariusz filmu, które wyreżyserowały wraz z tytułami takich filmów (koniunkcja – ten sam autor scenariusza i reżyser) 
+
+match(n:Person) - [:WROTE] -> (m:Movie) <- [:DIRECTED] - (n:Person) return n,m
+
+8.	Listę filmów, w których grał zarówno Hugo Weaving jak i Keanu Reeves
+
+MATCH (n:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(m) <- [:ACTED_IN] - (o:Person {name: "Keanu Reeves"}) RETURN m
+
+9.	(za 2pkt) Zestaw zapytań powodujących uzupełnienie bazy danych o film Captain America: The First Avenger wraz z uzupełnieniem informacji o reżyserze, scenarzystach i odtwórcach głównych ról (w oparciu o skrócone informacje z IMDB - http://www.imdb.com/title/tt0458339/) + zapytanie pokazujące dodany do bazy film wraz odtwórcami głównych ról, scenarzystą i reżyserem. Plik SVG ma pokazywać wynik ostatniego zapytania. 
+
+MATCH (hugo:Person {name: "Hugo Weaving"})
+
+create(CaptainAmerica:Movie {title:'Captain America: The First Avenger', released:2011, tagline:'Steve Rogers, a rejected military soldier, transforms into Captain America after taking a dose of a "Super-Soldier serum".'})
+
+create
+(joe:Person {name:'Joe Johnston', born:1950}),
+(christopher:Person {name:'Christopher Markus', born:1970}),
+(stephen:Person{name:'Stephen McFeely', born:1969}),
+(chris:Person {name:'Chris Evans', born:1981}),
+(samuel:Person {name:'Samuel L. Jackson', born:1948})
+
+Create
+(joe) - [:DIRECTED] -> (CaptainAmerica),
+(christopher) - [:WROTE] -> (CaptainAmerica),
+(stephen) - [:WROTE] -> (CaptainAmerica),
+(chris) - [:ACTED_IN] -> (CaptainAmerica),
+(samuel) - [:ACTED_IN] -> (CaptainAmerica),
+(hugo) - [:ACTED_IN] -> (CaptainAmerica)
+
+match (n {title: "Captain America: The First Avenger"}) - [r] - (m) return m,n

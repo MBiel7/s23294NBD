@@ -1,0 +1,191 @@
+1.	Umieść w bazie (nazwa bucketa ma być Twoim numerem indeksu poprzedzonym literą „s”) 5 wartości, gdzie każda z nich ma być dokumentem json mającym 4 pola co najmniej dwóch różnych typów. 
+
+curl -i -XPUT -d '{"name":"Jan","surname":"Kowalski","weight":90,"height":180}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Kowalski?returnbody=true
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbFC0DEUpkyWNlMHbyvcWXBQA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:40:51 GMT
+	ETag: "7Wv6okOGuDle1jjOHcPGk7"
+	Date: Sun, 27 Jun 2021 18:40:51 GMT
+	Content-Type: application/json
+	Content-Length: 50
+
+	'{name:Jan,surname:Kowalski,weight:90,height:180}'
+
+curl -i -XPUT -d '{"name":"Grzegorz","surname":"Brzęczyszczykiewicz","weight":102,"height":220}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Brzeczyszczykiewicz?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbftUfIpTImMfKIOzse4svCwA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:44:35 GMT
+	ETag: "ZlIYWdze1sP99Jgb1gvnf"
+	Date: Sun, 27 Jun 2021 18:44:35 GMT
+	Content-Type: application/json
+	Content-Length: 67
+
+	'{name:Grzegorz,surname:Brzczyszczykiewicz,weight:102,height:220}'
+	
+curl -i -XPUT -d '{"name":"Tomasz","surname":"Trąba","weight":110,"height":270}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Traba?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbM5kXIpTInMfKIOfqe4svCwA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:53:18 GMT
+	ETag: "3T9SeiE3G0yUOnSJsC4thv"
+	Date: Sun, 27 Jun 2021 18:53:18 GMT
+	Content-Type: application/json
+	Content-Length: 51
+
+	'{name:Tomasz,surname:Trba,weight:110,height:270}'
+
+curl -i -XPUT -d '{"name":"Monika","surname":"Nowak","weight":50,"height":150}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Nowak?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbZ58OEUpkzGNlMHb1vcWXBQA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:53:39 GMT
+	ETag: "5aBipnfXWOgvhid0mSgDra"
+	Date: Sun, 27 Jun 2021 18:53:39 GMT
+	Content-Type: application/json
+	Content-Length: 50
+
+	'{name:Monika,surname:Nowak,weight:50,height:150}'
+
+curl -i -XPUT -d '{"name":"Kasia","surname":"Tkacz","weight":40,"height":140}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Tkacz?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbfuMdRCiRMY+VwdHV9xZfFgA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:53:53 GMT
+	ETag: "5iuwCS1Xq4ubQTrT8rBnHz"
+	Date: Sun, 27 Jun 2021 18:53:53 GMT
+	Content-Type: application/json
+	Content-Length: 49
+
+	'{name:Kasia,surname:Tkacz,weight:40,height:140}'
+
+2.	Pobierz z bazy jedną z dodanych przez Ciebie wartości.
+
+curl -i http://localhost:8098/buckets/s23294/keys/Tkacz
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbfuMdRCiRMY+VwdHV9xZfFgA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:53:53 GMT
+	ETag: "5iuwCS1Xq4ubQTrT8rBnHz"
+	Date: Sun, 27 Jun 2021 18:54:51 GMT
+	Content-Type: application/json
+	Content-Length: 49
+
+	'{name:Kasia,surname:Tkacz,weight:40,height:140}'
+
+3.	Zmodyfikuj jedną z wartości – dodając dodatkowe pole do dokumentu. 
+
+curl -i -XPUT -d '{"name":"Monika","surname":"Nowak","weight":50,"height":150,"pregnant":"true"}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Nowak?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbZ58OEUpkymNleOzqe4svCwA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 18:56:35 GMT
+	ETag: "4DKYa8XxWJRvfeZYfg9Epz"
+	Date: Sun, 27 Jun 2021 18:56:35 GMT
+	Content-Type: application/json
+	Content-Length: 64
+
+	'{name:Monika,surname:Nowak,weight:50,height:150,pregnant:true}'
+
+4.	Zmodyfikuj jedną z wartości – usuwając jedną pole z wybranego dokumentu.
+
+curl -i -XPUT -d '{"name":"Kasia","surname":"Tkacz","height":140}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Tkacz?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbfuMdRCiRKY+Vgd/D9xZfFgA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 19:05:51 GMT
+	ETag: "f8YgUnbU9MAwbH9uHMSS4"
+	Date: Sun, 27 Jun 2021 19:05:51 GMT
+	Content-Type: application/json
+	Content-Length: 39
+
+	'{name:Kasia,surname:Tkacz,height:140}'
+
+5.	Zmodyfikuj jedną z wartości – zmieniając wartość jednego z pól. 
+
+curl -i -XPUT -d '{"name":"Tomasz","surname":"Trąba","weight":110,"height":170}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys/Traba?returnbody=true
+
+	HTTP/1.1 200 OK
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbM5kXIpTIksfKkO7he4svCwA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 19:07:19 GMT
+	ETag: "59ukVkuEiKl5xZdI0XYB8b"
+	Date: Sun, 27 Jun 2021 19:07:19 GMT
+	Content-Type: application/json
+	Content-Length: 51
+
+	'{name:Tomasz,surname:Trba,weight:110,height:170}'
+
+6.	Usuń jeden z dokumentów z bazy.
+
+curl -i -XDELETE http://127.0.0.1:8098/buckets/s23294/keys/Kowalski
+	HTTP/1.1 204 No Content
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Date: Sun, 27 Jun 2021 19:11:38 GMT
+	Content-Type: application/json
+	Content-Length: 0
+
+7.	Spróbuj pobrać z bazy wartość, która nie istnieje w tej bazie.
+
+curl -i http://localhost:8098/buckets/s23294/keys/Kowalski
+
+	HTTP/1.1 404 Object Not Found
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Date: Sun, 27 Jun 2021 19:12:35 GMT
+	Content-Type: text/plain
+	Content-Length: 10
+
+	not found
+
+8.	Dodaj do bazy 1 dokument json (zawierający 1 pole), ale nie specyfikuj klucza.
+
+curl -i  -d '{"pies":"Burek"}' -H "Content-Type: application/json" http://127.0.0.1:8098/buckets/s23294/keys?returnbody=true
+
+	HTTP/1.1 201 Created
+	X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvmfbb7oFIpTImMfKsMnL9xZfFgA=
+	Vary: Accept-Encoding
+	Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+	Location: /buckets/s23294/keys/Qx9D1xknsgslUYd7lJxPA8uoCjP
+	Link: </buckets/s23294>; rel="up"
+	Last-Modified: Sun, 27 Jun 2021 19:17:06 GMT
+	ETag: "aWi2LWaaT1godchHD8y7H"
+	Date: Sun, 27 Jun 2021 19:17:06 GMT
+	Content-Type: application/json
+	Content-Length: 14
+
+	'{pies:Burek}'
+
+9.	Pobierz z bazy element z zadania 8.
+
+curl -i -XPUT http://127.0.0.1:8098/search/index/bucketIndex
+
+curl -i -XPUT http://127.0.0.1:8098/types/animals/buckets/s23294/props -H "Content-Type: application/json" -d '{"props":{"search_index":"bucketIndex"}}'
+
+10.	Usuń z bazy element z zadania 8. 
